@@ -21,8 +21,7 @@
 title: Zachy Notes
 email:
 description: >-
-  Bilingual learning notes on AI, robotics, systems, and the process of
-  understanding technical ideas from first principles.
+  flow with it.
 baseurl: "/zachy" # the subpath of your site, e.g. /blog
 url: "https://zachytong.github.io"
 github_username: zachytong
