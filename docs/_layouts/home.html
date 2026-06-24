@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<section class="home-hero">
+  <p class="home-kicker">Learning in public</p>
+  <h1>{{ site.title }}</h1>
+  <p>
+    Bilingual notes for rebuilding technical ideas from papers, code, and
+    experiments into something reusable.
+  </p>
+</section>
+
+<section class="post-list-section">
+  <h2>Recent Notes</h2>
+
+  {%- if site.posts.size > 0 -%}
+    <div class="post-list-custom">
+      {%- for post in site.posts -%}
+        <article class="post-card">
+          <a class="post-card-title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          <div class="post-card-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            {%- if post.lang -%}<span>{{ post.lang | upcase }}</span>{%- endif -%}
+          </div>
+          {%- if post.excerpt -%}
+            <p>{{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}</p>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>

@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+{%- assign sibling_posts = site.posts | where: "translation_key", page.translation_key | sort: "lang" -%}
+
+<article class="post learning-post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-kicker">
+      {{ page.categories | first | default: "Learning Note" }}
+    </p>
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <div class="post-meta-row">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%b %-d, %Y" }}
+      </time>
+      {%- if page.reading_time -%}
+        <span>{{ page.reading_time }}</span>
+      {%- endif -%}
+      {%- if page.lang -%}
+        <span>{{ page.lang | upcase }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="post-actions" aria-label="Post controls">
+      <div class="language-switch" aria-label="Language switch">
+        {%- if sibling_posts.size > 1 -%}
+          {%- for post in sibling_posts -%}
+            <a class="{% if post.url == page.url %}active{% endif %}" href="{{ post.url | relative_url }}">
+              {{ post.lang | upcase }}
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          <span class="active">{{ page.lang | default: "en" | upcase }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </header>
+
+  <div class="post-shell">
+    <aside class="post-toc" aria-label="Table of contents">
+      <p>Contents</p>
+      <nav data-toc></nav>
+    </aside>
+
+    <div class="post-content e-content" itemprop="articleBody" data-content>
+      {{ content }}
+    </div>
+  </div>
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>
