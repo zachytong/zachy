@@ -123,7 +123,10 @@
     else { const gap = parseFloat(getComputedStyle(flow).columnGap) || 0; const offset = el.getBoundingClientRect().left - flow.getBoundingClientRect().left; goPage(Math.floor((offset + 2) / (viewport.clientWidth + gap))); }
     contents.close();
   }
-  function metadata(post) { return `<div class="post-meta"><time datetime="${esc(post.createdAt)}">${esc(date(post.createdAt))}</time><span class="meta-dot"></span><span>${esc(post.tags.split(',')[0])}</span><span class="meta-dot"></span><span>${t('中 / EN', 'ZH / EN')}</span></div>`; }
+  function metadata(post) {
+    const tag = post.tags.split(',')[0].trim();
+    return `<div class="post-meta"><time datetime="${esc(post.createdAt)}">${esc(date(post.createdAt))}</time>${tag ? `<span class="meta-dot"></span><span>${esc(tag)}</span>` : ''}</div>`;
+  }
   function drawContents(savedOnly = false) {
     document.getElementById('drawer-title').textContent = savedOnly ? t('我的收藏', 'Bookmarks') : t('目录', 'Contents');
     const container = document.getElementById('contents-list');
@@ -157,7 +160,7 @@
     if (current) {
       const content = current[Blog.lang];
       document.title = `${content.title} · Zachy Notes`;
-      flow.innerHTML = `<article><header class="article-header">${metadata(current)}<h1>${esc(content.title)}</h1><p class="article-description">${esc(content.excerpt)}</p><div class="article-actions"><a href="?lang=${Blog.lang}">${t('← 所有文章', '← All notes')}</a>${current.source ? `<a href="legacy/${encodeURIComponent(current.source)}" target="_blank" rel="noopener">${t('原始图文与导出', 'Original diagrams & exports')} ↗</a>` : ''}</div>${Blog.lang === 'en' && current.englishEdition === 'condensed' ? '<p class="translation-note">English reading edition, condensed from the complete Chinese notes.</p>' : ''}</header><div class="article-content">${markdown(content.markdown)}</div><p class="end-mark">${t('读到这里，留下自己的理解。', 'A little more understood.')}<br>· · ·</p></article>`;
+      flow.innerHTML = `<article><header class="article-header">${metadata(current)}<h1>${esc(content.title)}</h1><p class="article-description">${esc(content.excerpt)}</p><div class="article-actions"><a href="?lang=${Blog.lang}">${t('← 所有文章', '← All notes')}</a>${current.source ? `<a href="legacy/${encodeURIComponent(current.source)}" target="_blank" rel="noopener">${t('原始图文与导出', 'Original diagrams & exports')} ↗</a>` : ''}</div>${Blog.lang === 'en' && current.englishEdition === 'condensed' ? '<p class="translation-note">English reading edition, condensed from the complete Chinese notes.</p>' : ''}</header><div class="article-content">${markdown(content.markdown)}</div></article>`;
     } else if (url.searchParams.has('post')) {
       flow.innerHTML = `<h1>${t('没有找到这篇文章', 'Note not found')}</h1><p><a href="./">${t('返回博客', 'Back to the blog')}</a></p>`;
     } else if (view === 'archive') {
@@ -173,7 +176,7 @@
         const intro = content.excerpt || content.markdown.replace(/[#*`>]/g, '').slice(0, 300);
         const paragraphs = intro.split(/\n\n+/).filter(Boolean);
         return `<article class="post-entry" id="entry-${esc(p.id)}">${metadata(p)}<h2><a href="${href(p.id)}">${esc(content.title)}</a></h2>${paragraphs.map(s => `<p>${esc(s)}</p>`).join('')}<a class="continue-link" href="${href(p.id)}">${t('继续阅读', 'Continue reading')} ${icon('arrow-up-right')}</a><div class="post-separator"></div></article>`;
-      }).join('') + `<p class="end-mark">${t('未完，待续。', 'More notes to come.')} · · ·</p>` : `<h1>${t('书页正等待第一篇笔记。', 'The first page is waiting.')}</h1>`;
+      }).join('') : `<h1>${t('书页正等待第一篇笔记。', 'The first page is waiting.')}</h1>`;
     }
     reader.dataset.mode = mode;
     reader.style.setProperty('--reader-size', `${fontSize}px`);
