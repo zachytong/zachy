@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Zachy Notes · 关于机器学习、系统与世界模型的阅读和思考。">
+  <title>Zachy Notes</title>
+  <link rel="icon" href="avatar.png">
+  <link rel="alternate" type="application/atom+xml" title="Zachy Notes" href="feed.xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="backgrounds.css">
+  <link rel="stylesheet" href="vendor/katex.css">
+  <script src="vendor/katex.js"></script><script src="vendor/auto-render.js"></script>
+  <script src="vendor/marked.js"></script>
+  <script src="vendor/purify.js"></script>
+  <script src="vendor/lucide.js"></script>
+  <script src="shared.js"></script>
+</head>
+<body>
+  <div class="background-scene" id="background-scene" aria-hidden="true"></div>
+  <div class="background-scrim" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="identity" href="./" aria-label="Zachy Notes"><img src="avatar.png" width="40" height="40" alt="Zachy"><span>Zachy<span class="identity-notes"> Notes</span><small>flow with it.</small></span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="./" data-nav="blog">博客</a>
+      <a href="?view=archive" data-nav="archive">归档</a>
+      <a href="?view=about" data-nav="about">关于</a>
+      <span class="nav-divider"></span>
+      <button class="icon-button" data-theme-button type="button" aria-label="切换日夜模式"></button>
+      <div class="language-switch" aria-label="Language"><button data-lang="zh" type="button">中</button><span>/</span><button data-lang="en" type="button">EN</button></div>
+    </nav>
+  </header>
+  <main class="reading-layout">
+    <section class="reader" aria-label="博客阅读器">
+      <header class="reader-heading"><div class="reader-label"><span class="mini-line"></span><span id="running-title">Random Thoughts</span></div></header>
+      <div class="page-window" id="page-window" tabindex="0" aria-label="Reading content"><div class="book-flow" id="book-flow"><p>正在打开书页…</p></div></div>
+      <footer class="reader-footer"><button class="page-arrow" id="previous-page" aria-label="上一页"><i data-lucide="arrow-left"></i><span>上一页</span></button><span class="page-position" id="page-position" aria-live="polite"></span><button class="page-arrow" id="next-page" aria-label="下一页"><span>下一页</span><i data-lucide="arrow-right"></i></button></footer>
+      <div class="reading-progress"><div id="reading-progress"></div></div>
+    </section>
+    <aside class="reading-rail" aria-label="阅读工具">
+      <button class="rail-button" id="contents-button" aria-label="目录" title="目录"><i data-lucide="list"></i></button>
+      <button class="rail-button" id="mode-button" aria-label="滚动阅读" title="滚动阅读"><i data-lucide="arrow-down-up"></i></button>
+      <button class="rail-button" id="font-button" aria-label="字号" title="字号"><i data-lucide="type"></i></button>
+      <span class="rail-divider"></span>
+      <button class="rail-button" id="bookmark-button" aria-label="收藏" title="收藏"><i data-lucide="bookmark"></i></button>
+      <button class="rail-button" id="search-button" aria-label="搜索" title="搜索"><i data-lucide="search"></i></button>
+      <button class="rail-button article-tool" id="print-button" aria-label="打印 / PDF" title="打印 / PDF" hidden><i data-lucide="printer"></i></button>
+      <button class="rail-button" id="background-toggle" aria-label="隐藏背景" title="隐藏背景" hidden><i data-lucide="image-off"></i></button>
+      <button class="rail-button" id="background-next" aria-label="下一张背景" title="下一张背景" hidden><i data-lucide="skip-forward"></i></button>
+    </aside>
+  </main>
+  <footer class="site-footer"><span>© 2026 Zachy Notes</span><span class="footer-links"><span class="background-credit" id="background-credit" hidden><span id="background-credit-label">图源</span><a href="https://mjpro.ai/" target="_blank" rel="noopener noreferrer">MJ Pro.AI <span aria-hidden="true">↗</span></a><span class="footer-dot">·</span></span><a href="feed.xml">RSS</a><span class="footer-dot">·</span><a href="https://github.com/zachytong/zachy" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a><span class="background-return" id="background-return" hidden><span class="footer-dot" aria-hidden="true">·</span></span></span></footer>
+  <dialog class="drawer" id="contents-dialog"><header><div><small id="drawer-kicker">CONTENTS</small><h2 id="drawer-title">目录</h2></div><button class="icon-button close-dialog" aria-label="关闭"><i data-lucide="x"></i></button></header><div class="drawer-content" id="contents-list"></div></dialog>
+  <dialog class="search-dialog" id="search-dialog"><header><i data-lucide="search"></i><input id="search-input" type="search" placeholder="搜索文章、主题或关键词…" aria-label="搜索文章"><button class="icon-button close-dialog" aria-label="关闭"><i data-lucide="x"></i></button></header><div id="search-results" class="search-results"></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+  <script src="backgrounds.js"></script>
+</body>
+</html>
